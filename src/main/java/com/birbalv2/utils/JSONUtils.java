@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 public class JSONUtils {
 
-	public static String getJSONObject(String jsonString, String key) {
+	public static String getJSONObject(String jsonString, String key) throws Exception {
 		JSONObject jsonObject = new JSONObject(jsonString);
 		JSONObject currObject = jsonObject;
 		String keys[] = key.split(":");
