@@ -20,7 +20,7 @@ public class Controller {
 		try {
 			result = responder.respond(msg, null);
 		} catch (Exception e) {
-			e.printStackTrace();
+			result = e.getMessage();
 		}
 		Output obj = new Output();
 		obj.setValue(result);
