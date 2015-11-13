@@ -6,7 +6,6 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
-import org.apache.http.HttpException;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -14,8 +13,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-
 public class NetworkUtils {
+	public static int MAX_RETRIES = 10;
+
 	public static String localIPAddress() {
 		try {
 			for (Enumeration<NetworkInterface> en = NetworkInterface
@@ -41,32 +41,46 @@ public class NetworkUtils {
 	}
 
 	public static String responseContent(String url) throws Exception {
-		// Create an instance of HttpClient.
-		CloseableHttpClient httpclient = HttpClients.createDefault();
-		HttpGet httpGet = new HttpGet(url);
-		CloseableHttpResponse response = httpclient.execute(httpGet);
-		
+
+		boolean success = false;
+		int retries = 0;
 		String output = null;
-		// Provide custom retry handler is necessary
-		try {
-			// Execute the method.
-			int statusCode = response.getStatusLine().getStatusCode();
 
-			if (statusCode != HttpStatus.SC_OK) {
-				System.err.println("Method failed: " + response.getStatusLine());
+		while (retries < MAX_RETRIES && !success) {
+			// Create an instance of HttpClient.
+			CloseableHttpClient httpclient = HttpClients.createDefault();
+			HttpGet httpGet = new HttpGet(url);
+			CloseableHttpResponse response = httpclient.execute(httpGet);
+
+			// Provide custom retry handler is necessary
+			try {
+				// Execute the method.
+				int statusCode = response.getStatusLine().getStatusCode();
+
+				if (statusCode != HttpStatus.SC_OK) {
+					success = false;
+					retries++;
+					System.err.println("Method failed: "
+							+ response.getStatusLine());
+					Thread.sleep(2000);
+				} else {
+					retries++;
+					success = true;
+				}
+
+				// Deal with the response.
+				// Use caution: ensure correct character encoding and is not
+				// binary
+				// data
+				output = EntityUtils.toString(response.getEntity());
+
+			} catch (IOException e) {
+				System.err.println("Fatal transport error: " + e.getMessage());
+				e.printStackTrace();
+			} finally {
+				response.close();
+				httpclient.close();
 			}
-
-			// Deal with the response.
-			// Use caution: ensure correct character encoding and is not binary
-			// data
-			output = EntityUtils.toString(response.getEntity());
-
-		} catch (IOException e) {
-			System.err.println("Fatal transport error: " + e.getMessage());
-			e.printStackTrace();
-		} finally {
-			response.close();
-			httpclient.close();
 		}
 		return output;
 	}
