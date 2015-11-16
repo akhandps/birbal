@@ -13,9 +13,10 @@ public class BotsNameExecutor implements IntentExecutor {
 	public void execute(String[] entities) {
 		ConceptDAO conceptDAO = new ConceptDAO();
 		Concept concept = conceptDAO.get("selfName");
+		System.out.println("concept:" + concept.getConceptValue());
 		String text = NaturalLanguageGenerator.getSentence("My name", "is",
 				concept.getConceptValue());
-		Answer answer = new Answer();
+		answer = new Answer();
 		answer.setOutputText(text);
 	}
 
