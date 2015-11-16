@@ -20,13 +20,6 @@ public class Concept {
 	@Property("concept_value")
 	private String conceptValue;
 
-	public Concept(ObjectId id, String conceptName, String conceptValue) {
-		super();
-		this.id = id;
-		this.conceptName = conceptName;
-		this.conceptValue = conceptValue;
-	}
-
 	public String getConceptName() {
 		return conceptName;
 	}
