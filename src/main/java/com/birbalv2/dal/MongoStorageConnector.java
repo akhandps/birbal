@@ -58,4 +58,9 @@ public class MongoStorageConnector implements StorageConnector {
 		return output;
 	}
 
+	@Override
+	public <T> boolean save(T obj) {
+		datastore.save(obj);
+		return true;
+	}
 }

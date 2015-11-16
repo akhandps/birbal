@@ -10,5 +10,5 @@ public interface StorageConnector {
 
 	public <T> List<T> query(String query, String param, Class<T> clazz);
 	
-	
+	public <T> boolean save(T obj);
 }

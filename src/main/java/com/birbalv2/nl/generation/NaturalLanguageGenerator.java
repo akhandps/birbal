@@ -16,7 +16,6 @@ public class NaturalLanguageGenerator {
 		p.setVerb(verb);
 		p.setObject(object);
 		
-
 		return realiser.realiseSentence(p);
 	}
 }

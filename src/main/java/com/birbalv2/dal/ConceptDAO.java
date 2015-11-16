@@ -13,4 +13,9 @@ public class ConceptDAO implements BaseDAO<Concept> {
 		return concept;
 	}
 
+	@Override
+	public void save(Concept concept) {
+		connect.save(concept);
+	}
+	
 }
