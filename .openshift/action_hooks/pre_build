@@ -1,5 +1,5 @@
 mvn install:install-file --debug
- -Dfile=../../birbalv2/runtime/repo/non-maven-libs/simplenlg-v4.4.2
+ -Dfile=../../birbalv2/runtime/repo/non-maven-libs/simplenlg-v4.4.2.jar
  -DgeneratePom=true
  -DartifactId=simpleng
  -Dversion=4.4.2
