@@ -2,28 +2,27 @@ package com.birbalv2.responder;
 
 import java.util.Map;
 
-import org.apache.http.client.utils.URIBuilder;
-
+import com.birbalv2.helper.JeannieHelper;
+import com.birbalv2.model.Answer;
 import com.birbalv2.utils.JSONUtils;
-import com.birbalv2.utils.NetworkUtils;
-
 
 public class JeannieResponder implements Responder {
 
-	private static final String API_URI = "https://ask.pannous.com/api";
+	JeannieHelper helper = new JeannieHelper();
+
 	@Override
-	public String respond(String input, Map<String, String> context) throws Exception {
-		URIBuilder uriBuilder = new URIBuilder(API_URI);
-		uriBuilder.addParameter("input", input);
-		uriBuilder.addParameter("timeZone", "330");
-		uriBuilder.addParameter("locale", "en_US");
-		uriBuilder.addParameter("id", "akhandpratap0503@gmail.com");
-		uriBuilder.addParameter("clientFeatures", "say");
+	public Answer respond(String input, Map<String, String> context)
+			throws Exception {
 
+		String output = helper.getAnswer(input);
+		String answerText = JSONUtils.getJSONString(output,
+				"output:actions:say:text");
+		double answerConfidence = 1;
+		Answer answer = new Answer();
+		answer.setOutputText(answerText);
+		answer.setConfidence(answerConfidence);
 
-		System.out.println(uriBuilder.toString());
-		String output = NetworkUtils.responseContent(uriBuilder.build().toString());
-		return JSONUtils.getJSONObject(output, "output:actions:say:text");
+		return answer;
 	}
 
 }

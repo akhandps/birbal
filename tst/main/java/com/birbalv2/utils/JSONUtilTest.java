@@ -8,7 +8,7 @@ public class JSONUtilTest {
 	@Test
 	public void testJSONGet() throws Exception {
 		String str = "{ \"name\": {\"firstName\":\"Alice\"}, \"age\": 20 }";
-		String out = JSONUtils.getJSONObject(str, "name:firstName");
+		String out = JSONUtils.getJSONString(str, "name:firstName");
 		Assert.assertEquals("Alice", out);
 	}
 }

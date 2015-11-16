@@ -41,7 +41,11 @@ public class NetworkUtils {
 	}
 
 	public static String responseContent(String url) throws Exception {
+		HttpGet httpGet = new HttpGet(url);
+		return responseContent(httpGet);
+	}
 
+	public static String responseContent(HttpGet httpGet) throws Exception {
 		boolean success = false;
 		int retries = 0;
 		String output = null;
@@ -49,7 +53,6 @@ public class NetworkUtils {
 		while (retries < MAX_RETRIES && !success) {
 			// Create an instance of HttpClient.
 			CloseableHttpClient httpclient = HttpClients.createDefault();
-			HttpGet httpGet = new HttpGet(url);
 			CloseableHttpResponse response = httpclient.execute(httpGet);
 
 			// Provide custom retry handler is necessary
