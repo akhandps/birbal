@@ -81,6 +81,11 @@ jboss-eap-*-maven-repository/org/jboss/spec/jboss-javaee-6.0
 			<artifactId>simpleng</artifactId>
 			<version>4.4.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.mongodb.morphia</groupId>
+			<artifactId>morphia</artifactId>
+			<version>1.0.1</version>
+		</dependency>
 	</dependencies>
 	<profiles>
 		<profile>
