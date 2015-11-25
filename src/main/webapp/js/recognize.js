@@ -1,5 +1,6 @@
-    function listen(callback) {
     var recognition = new webkitSpeechRecognition();
+
+    function listen(callback) {
     recognition.continuous = true;
     recognition.interimResults = true;
  
@@ -13,4 +14,12 @@
  
     // start listening
     recognition.start();
+    }
+
+    function listenStart() {
+      recognition.start();
+    }
+
+    function listenStop() {
+      recognition.stop();
     }
