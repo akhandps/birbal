@@ -14,12 +14,21 @@
  
     // start listening
     recognition.start();
+    setInterval(listenStart, 10000);
     }
 
     function listenStart() {
+    try {
       recognition.start();
+      } catch(err) {
+      	console.log(err);
+      }
     }
 
     function listenStop() {
+     try {
       recognition.stop();
+      } catch(err) {
+      	console.log(err);
+      }
     }
