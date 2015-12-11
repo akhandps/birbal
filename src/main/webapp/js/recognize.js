@@ -19,7 +19,9 @@
 
     function listenStart() {
     try {
-      recognition.start();
+    if(!responsiveVoice.isPlaying()){
+    	recognition.start();
+    }
       } catch(err) {
       	console.log(err);
       }
