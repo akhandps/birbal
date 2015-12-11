@@ -16,6 +16,17 @@ function speak(text, callback) {
     });
 }
 
+function speakResponsive(text, callback) {
+	responsiveVoice.speak(text, "UK English Male", {onstart: function() {
+		Bot.listenStop();
+	}, onend: function(){
+		Bot.listenStart();
+		if(callback) {
+			callback();
+		}
+	}});
+}
+
 var speechUtteranceChunker = function (utt, settings, callback) {
     settings = settings || {};
     var newUtt;
