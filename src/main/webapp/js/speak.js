@@ -17,7 +17,7 @@ function speak(text, callback) {
 }
 
 function speakResponsive(text, callback) {
-	responsiveVoice.speak(text, "UK English Male", {onstart: function() {
+	responsiveVoice.speak(text, "Hindi Female", {onstart: function() {
 		Bot.listenStop();
 	}, onend: function(){
 		Bot.listenStart();
