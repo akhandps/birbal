@@ -1,5 +1,5 @@
     var recognition = new webkitSpeechRecognition();
-
+	var timesCheckedForSpeaking = 0;
     function listen(callback) {
     recognition.continuous = true;
     recognition.interimResults = true;
@@ -21,6 +21,12 @@
     try {
     if(!responsiveVoice.isPlaying()){
     	recognition.start();
+    } else {
+    	timesCheckedForSpeaking++;
+    	if(timesCheckedForSpeaking > 2) {
+    		timesCheckedForSpeaking = 0;
+    		responsiveVoice.cancel();
+    	}
     }
       } catch(err) {
       	console.log(err);
