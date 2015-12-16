@@ -14,12 +14,13 @@
  
     // start listening
     recognition.start();
-    setInterval(listenStart, 10000);
+    setInterval(listenStart, 5000);
     }
 
     function listenStart() {
     try {
     if(!responsiveVoice.isPlaying()){
+    	timesCheckedForSpeaking = 0;
     	recognition.start();
     } else {
     	timesCheckedForSpeaking++;
