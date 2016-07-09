@@ -6,17 +6,6 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
-
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.X509Certificate;
-
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -26,52 +15,6 @@ import org.apache.http.util.EntityUtils;
 
 public class NetworkUtils {
 	public static int MAX_RETRIES = 10;
-	static {
-		/*
-		 * fix for Exception in thread "main"
-		 * javax.net.ssl.SSLHandshakeException:
-		 * sun.security.validator.ValidatorException: PKIX path building failed:
-		 * sun.security.provider.certpath.SunCertPathBuilderException: unable to
-		 * find valid certification path to requested target
-		 */
-	    TrustManager[] trustAllCerts = new TrustManager[] {
-	       new X509TrustManager() {
-	          public java.security.cert.X509Certificate[] getAcceptedIssuers() {
-	            return null;
-	          }
-
-	          public void checkClientTrusted(X509Certificate[] certs, String authType) {  }
-
-	          public void checkServerTrusted(X509Certificate[] certs, String authType) {  }
-
-	       }
-	    };
-
-	    SSLContext sc;
-		try {
-			sc = SSLContext.getInstance("SSL");
-			sc.init(null, trustAllCerts, new java.security.SecureRandom());
-		    HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (KeyManagementException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	    // Create all-trusting host name verifier
-	    HostnameVerifier allHostsValid = new HostnameVerifier() {
-	        public boolean verify(String hostname, SSLSession session) {
-	          return true;
-	        }
-	    };
-	    // Install the all-trusting host verifier
-	    HttpsURLConnection.setDefaultHostnameVerifier(allHostsValid);
-	    /*
-	     * end of the fix
-	     */
-	}
 
 	public static String localIPAddress() {
 		try {
@@ -144,19 +87,4 @@ public class NetworkUtils {
 		}
 		return output;
 	}
-}
-
-class TrustAllX509TrustManager implements X509TrustManager {
-    public X509Certificate[] getAcceptedIssuers() {
-        return new X509Certificate[0];
-    }
-
-    public void checkClientTrusted(java.security.cert.X509Certificate[] certs,
-            String authType) {
-    }
-
-    public void checkServerTrusted(java.security.cert.X509Certificate[] certs,
-            String authType) {
-    }
-
 }

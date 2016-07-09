@@ -6,7 +6,7 @@ import com.birbalv2.utils.NetworkUtils;
 
 public class JeannieHelper {
 
-	private static final String API_URI = "https://ask.pannous.com/api";
+	private static final String API_URI = "http://ask.pannous.com/api";
 
 	public String getAnswer(String msg) throws Exception {
 		URIBuilder uriBuilder = new URIBuilder(API_URI);
