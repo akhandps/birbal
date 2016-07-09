@@ -2,7 +2,7 @@
 function speak(text, callback) {
     var u = new SpeechSynthesisUtterance();
     u.text = text;
-    u.lang = 'hi-IN';
+    u.lang = 'en-US';
     u.voice = speechSynthesis.getVoices()[7];
     Bot.listenStop();
    
@@ -18,7 +18,7 @@ function speak(text, callback) {
 
 function speakResponsive(text, callback) {
 	Bot.listenStop();
-	responsiveVoice.speak(text.slice(0,200), "Hindi Female", {onstart: function() {
+	responsiveVoice.speak(text.slice(0,200), "UK English Male", {onstart: function() {
 	}, onend: function(){
 		//if(!responsiveVoice.isPlaying()){
 		//	Bot.listenStart();
